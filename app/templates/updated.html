@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Test (Backend)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0703;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .header {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .login-box {
+            background: #332211;
+            padding: 30px;
+            border-radius: 8px;
+            width: 350px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            box-sizing: border-box;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #f7c390;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #472f17;
+            border-radius: 5px;
+            transition: all 0.3s;
+            background: #51361a;
+            color: #fff;
+        }
+
+        input:focus {
+            border-color: #f7c390;
+            outline: none;
+            background: #383838;
+        }
+
+        .btn {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn-post {
+            background: #D2B48C;
+            color: #1e140a;
+        }
+
+        .btn-post:hover {
+            background: #ffff00;
+            color: #000000;
+        }
+
+        .btn-get {
+            background: #D2B48C;
+            color: #1e140a;
+        }
+
+        .btn-get:hover {
+            background: #ffff00;
+            color: #000000;
+        }
+
+        .result {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #bdbdbd;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            background: #654321;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <div class="header">My Awesome Website</div>
+        <h2>Login Test</h2>
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button class="btn btn-post" id="btn-post">Send POST</button>
+        <button class="btn btn-get" id="btn-get">Send GET</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        console.log("JS loaded");
+
+        const API_BASE = ""; // leave blank to use same server
+
+        document.getElementById('btn-post').addEventListener('click', sendPost);
+        document.getElementById('btn-get').addEventListener('click', sendGet);
+
+        function sendPost() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            fetch(`${API_BASE}/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('result').innerText = 'POST Response:\n' + JSON.stringify(data, null, 2);
+                console.log('POST Response:', data);
+            })
+            .catch(err => {
+                document.getElementById('result').innerText = 'Error: ' + err;
+                console.error(err);
+            });
+        }
+
+        function sendGet() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const url = `${API_BASE}/login?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
+            fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('result').innerText = 'GET Response:\n' + JSON.stringify(data, null, 2);
+                console.log('GET Response:', data);
+            })
+            .catch(err => {
+                document.getElementById('result').innerText = 'Error: ' + err;
+                console.error(err);
+            });
+        }
+    </script>
+</body>
+</html>
