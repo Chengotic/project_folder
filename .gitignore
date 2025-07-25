@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+venv/
+.env/
+
+# SQLite database (optional — if collaborators should init their own)
+*.db
+
+# VSCode and editor configs
+.vscode/
+.idea/
+
+# Environment variables
+*.env
