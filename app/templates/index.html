@@ -6,9 +6,9 @@
     <title>Login Test (Backend)</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: #1e1e2f;
-            color: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0703;
+            color: #e0e0e0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -16,67 +16,99 @@
             margin: 0;
         }
 
+        .header {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
         .login-box {
-            background: #2a2a40;
-            padding: 20px;
-            border-radius: 10px;
-            width: 300px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.4);
+            background: #332211;
+            padding: 30px;
+            border-radius: 8px;
+            width: 350px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            box-sizing: border-box;
         }
 
         h2 {
             text-align: center;
             margin-bottom: 20px;
+            color: #f7c390;
         }
 
         input {
             width: 100%;
-            padding: 10px;
+            box-sizing: border-box;
+            padding: 12px;
             margin: 10px 0;
-            border: none;
+            border: 1px solid #472f17;
             border-radius: 5px;
-            background: #3a3a50;
+            transition: all 0.3s;
+            background: #51361a;
             color: #fff;
         }
 
         input:focus {
-            outline: 2px solid #6a5acd;
+            border-color: #f7c390;
+            outline: none;
+            background: #383838;
         }
 
         .btn {
             width: 100%;
-            padding: 10px;
+            box-sizing: border-box;
+            padding: 12px;
             margin-top: 10px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
+            transition: background 0.3s;
         }
 
         .btn-post {
-            background: #6a5acd;
-            color: #fff;
+            background: #D2B48C;
+            color: #1e140a;
+        }
+
+        .btn-post:hover {
+            background: #ffff00;
+            color: #000000;
         }
 
         .btn-get {
-            background: #4caf50;
-            color: #fff;
+            background: #D2B48C;
+            color: #1e140a;
+        }
+
+        .btn-get:hover {
+            background: #ffff00;
+            color: #000000;
         }
 
         .result {
             margin-top: 15px;
             font-size: 14px;
-            color: #ddd;
+            color: #bdbdbd;
             word-wrap: break-word;
             white-space: pre-wrap;
+            background: #654321;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            width: 100%;
+            box-sizing: border-box;
         }
     </style>
 </head>
 <body>
     <div class="login-box">
+        <div class="header">My Awesome Website</div>
         <h2>Login Test</h2>
-        <input type="text" id="username" placeholder="Username">
-        <input type="password" id="password" placeholder="Password">
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
         <button class="btn btn-post" id="btn-post">Send POST</button>
         <button class="btn btn-get" id="btn-get">Send GET</button>
         <div class="result" id="result"></div>
