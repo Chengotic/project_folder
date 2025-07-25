@@ -17,6 +17,7 @@
         }
 
         .login-box {
+            position: relative;
             background: #332211;
             padding: 30px;
             border-radius: 8px;
@@ -24,6 +25,21 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             box-sizing: border-box;
             text-align: center;
+        }
+
+        /* Close button (X) */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 22px;
+            color: #f7c390;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: #ff4444;
         }
 
         h2 {
@@ -39,13 +55,13 @@
             border-radius: 5px;
             background: #51361a;
             color: #fff;
-            transition: 0.3s;
+            box-sizing: border-box;
         }
 
         input:focus {
             border-color: #f7c390;
-            background: #383838;
             outline: none;
+            background: #383838;
         }
 
         .btn {
@@ -56,84 +72,68 @@
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
+            background: #D2B48C;
+            color: #1e140a;
             transition: background 0.3s;
         }
 
-        .btn-post {
-            background: #D2B48C;
-            color: #1e140a;
-        }
-
-        .btn-post:hover {
+        .btn:hover {
             background: #ffff00;
-            color: #000000;
+            color: #000;
         }
 
-        .result {
-            margin-top: 15px;
-            font-size: 14px;
-            color: #bdbdbd;
-            word-wrap: break-word;
-            white-space: pre-wrap;
-            background: #654321;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #444;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .register-link {
+        .link {
             display: block;
             margin-top: 15px;
             color: #f7c390;
             text-decoration: none;
-            font-size: 14px;
+        }
+        .link:hover {
+            text-decoration: underline;
         }
 
-        .register-link:hover {
-            text-decoration: underline;
+        .result {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #bdbdbd;
         }
     </style>
 </head>
 <body>
     <div class="login-box">
+        <!-- Close button -->
+        <a href="{{ url_for('routes.home') }}" class="close-btn">&times;</a>
+
         <h2>Login</h2>
         <input type="text" id="username" placeholder="Username" required>
         <input type="password" id="password" placeholder="Password" required>
-        <button class="btn btn-post" id="btn-post">Login</button>
+        <button class="btn" id="btn-login">Login</button>
+        <a href="{{ url_for('routes.register_page') }}" class="link">Don't have an account? Register</a>
         <div class="result" id="result"></div>
-
-        <!-- Link to registration page -->
-        <a class="register-link" href="/register_page">Don't have an account? Register here</a>
     </div>
 
     <script>
-        console.log("JS loaded");
-
-        const API_BASE = ""; // same server
-
-        document.getElementById('btn-post').addEventListener('click', sendPost);
-
-        function sendPost() {
+        document.getElementById('btn-login').addEventListener('click', () => {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            fetch(`${API_BASE}/login`, {
+            fetch('/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password })
             })
             .then(res => res.json())
             .then(data => {
-                document.getElementById('result').innerText = 'POST Response:\n' + JSON.stringify(data, null, 2);
-                console.log('POST Response:', data);
+                if (data.status === "success") {
+                    window.location.href = '/';
+                } else {
+                    document.getElementById('result').innerText = data.message;
+                }
             })
             .catch(err => {
                 document.getElementById('result').innerText = 'Error: ' + err;
-                console.error(err);
             });
-        }
+        });
     </script>
 </body>
 </html>
