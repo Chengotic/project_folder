@@ -51,7 +51,7 @@
 <body>
     <div class="navbar">
         {% if session.get('username') %}
-            <span>Welcome, {{ session['username'] }}</span>
+            <span>{{ session['username'] }}</span>
             <a href="{{ url_for('routes.logout') }}">Logout</a>
         {% else %}
             <a href="{{ url_for('routes.login_page') }}">Login</a>
