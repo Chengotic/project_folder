@@ -10,12 +10,15 @@ def index():
 @bp.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
-        data = request.get_json()
+        data = request.get_json(silent=True) or {}
         username = data.get('username')
         password = data.get('password')
     else:
         username = request.args.get('username')
         password = request.args.get('password')
+
+    if not username or not password:
+        return jsonify({"status": "fail", "message": "Missing username or password"}), 400
 
     user = User.query.filter_by(username=username, password=password).first()
 
