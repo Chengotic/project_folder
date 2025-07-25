@@ -7,3 +7,5 @@ class User(db.Model):
 
     def __repr__(self):
         return f"<User {self.username}>"
+
+password = db.Column(db.String(200), nullable=False)  # longer for hashes

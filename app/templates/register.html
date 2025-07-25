@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register</title>
+<style>
+    body { background: #1e1e2f; color: #fff; font-family: Arial; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    .box { background: #2a2a40; padding: 20px; border-radius: 10px; width: 300px; }
+    input { width: 100%; padding: 10px; margin: 10px 0; background: #3a3a50; border: none; border-radius: 5px; color: #fff; }
+    button { width: 100%; padding: 10px; margin-top: 10px; border: none; border-radius: 5px; background: #4caf50; color: #fff; cursor: pointer; font-weight: bold; }
+</style>
+</head>
+<body>
+    <div class="box">
+        <h2>Register</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="registerUser()">Register</button>
+        <div id="result"></div>
+    </div>
+<script>
+function registerUser() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    fetch('/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById('result').innerText = data.message;
+    })
+    .catch(err => console.error(err));
+}
+</script>
+</body>
+</html>
