@@ -1,105 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
 
-        <style>
-            
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0a0703;
-            color: #e0e0e0;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-        }
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0a0703;
+      color: #e0e0e0;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
 
-        /* Pseudo-element for background image with blur and opacity */
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background-image: url("{{ url_for('static', filename='homepage-picture.jpeg') }}");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            filter: blur(8px);
-            opacity: 0.5; /* Controls how much the background color shows through */
-            z-index: -2;
-        }
+    /* Blurred Background Image */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("{{ url_for('static', filename='homepage-picture.jpeg') }}");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      filter: blur(8px);
+      opacity: 0.5;
+      z-index: -2;
+    }
 
-        /* Optional dark overlay for even more dimming */
-        body::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent black */
-            z-index: -1;
-        }
+    /* Dark Overlay */
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: -1;
+    }
 
-        /* Navbar */
-        .navbar {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-        }
+    /* Navigation Bar */
+    .navbar {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+    }
 
-        .navbar a, .navbar span {
-            color: #f7c390;
-            text-decoration: none;
-            margin-left: 15px;
-            font-weight: bold;
-        }
+    .navbar a,
+    .navbar span {
+      color: #f7c390;
+      text-decoration: none;
+      margin-left: 15px;
+      font-weight: bold;
+    }
 
-        .navbar a:hover {
-            color: #ffff00;
-        }
+    .navbar a:hover {
+      color: #ffff00;
+    }
 
-        /* Main content image */
-        .main-content {
-            display: flex;
-            justify-content: center;
-            align-items: top;
-            height: 100vh;
-        }
+    /* Page Content Container */
+    .container {
+      max-width: 900px;
+      margin: 100px auto 0 auto; /* spacing from top */
+      padding: 20px;
+    }
 
-        .main-content img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-        }
-    </style>
+    /* Main Title Section */
+    .main-content {
+      margin-bottom: 40px;
+    }
+
+    .main-content h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+
+    /* About Section */
+    .about {
+      background-color: rgba(255, 255, 255, 0.08);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .about h2 {
+      margin-top: 0;
+    }
+
+  </style>
 </head>
 <body>
-    <div class="navbar">
-        {% if session.get('username') %}
-            <span>{{ session['username'] }}</span>
-            <a href="{{ url_for('routes.logout') }}">Logout</a>
-        {% else %}
-            <a href="{{ url_for('routes.login_page') }}">Login</a>
-            <a href="{{ url_for('routes.register_page') }}">Register</a>
-        {% endif %}
+
+  <!-- Navigation Bar -->
+  <div class="navbar">
+    {% if session.get('username') %}
+      <span>{{ session['username'] }}</span>
+      <a href="{{ url_for('routes.logout') }}">Logout</a>
+    {% else %}
+      <a href="{{ url_for('routes.login_page') }}">Login</a>
+      <a href="{{ url_for('routes.register_page') }}">Register</a>
+    {% endif %}
+  </div>
+
+  <!-- Main Page Container -->
+  <div class="container">
+    <!-- Main Content -->
+    <div class="main-content">
+      <h1>Hello World</h1>
+      <!-- Optional Image -->
+      <!-- <img src="{{ url_for('static', filename='homepage-picture.jpeg') }}" alt="Homepage Picture"> -->
     </div>
 
-    <div class="main-content">
-        <div>
-            <h1>
-                Hello World
-            </h1>
-        </div>
-        <!-- <img src="{{ url_for('static', filename='homepage-picture.jpeg') }}" alt="Homepage Picture"> -->
+    <!-- About Section -->
+    <div class="about">
+      <h2>About</h2>
+      <p>
+        This is an easily editable about paragraph. You can change this text to describe your website, your mission, or anything else you want to share with your visitors.
+      </p>
     </div>
+  </div>
+
 </body>
 </html>
